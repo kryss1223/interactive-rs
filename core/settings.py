@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-2uope=_#3307w*z@!=ziobv5$pu4m3qo8x(o_8st*_k&^544bb
 # SECURITY WARNsING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '172.26.241.250']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'interactive-rs.onrender.com']
 AUTH_USER_MODEL = 'main.User'
 LOGIN_URL = 'login'
 
