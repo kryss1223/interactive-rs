@@ -8,9 +8,7 @@ __pycache__/
 *.pyc
 *.pyo
 
-# SQLite DB
-*.sqlite3
-db.sqlite3
+
 
 # Archivos temporales
 *.log
@@ -26,3 +24,4 @@ media/
 # Render build artifacts
 build/
 dist/
+
