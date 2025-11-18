@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Reality Show{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <script src="https://unpkg.com/phosphor-icons"></script>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR GLOBAL -->
+    <div class="sidebar">
+        <a class="nav-icon" href="{% url 'home' %}">
+            <i class="ph ph-house"></i>
+        </a>
+        <a class="nav-icon" href="{% url 'participantes' %}">
+            <i class="ph ph-users-three"></i>
+        </a>
+         <a class="nav-icon" href="{% url 'playground' %}">
+            <i class="ph ph-fire"></i>
+        </a>
+
+        {% if request.user.is_authenticated %}
+            {% if aliado %}
+                <a class="nav-icon" href="{% url 'participante_detalle' aliado.participante.id %}">
+                    <i class="ph ph-star"></i>
+                </a>
+            {% else %}
+                <a class="nav-icon" href="{% url 'participantes' %}"><i class="ph ph-star"></i>
+</a>
+            {% endif %}
+            <a href="{% url 'logout' %}" class="nav-icon">🚪</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="nav-icon">🔑</a>
+        {% endif %}
+    </div>
+
+    
+    <!-- CONTENIDO VARIABLE -->
+    <div class="container"> <!-- Usar container-navbar para moviles -->
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}{{ p.nombre }}{% endblock %}
+
+{% block content %}
+
+<section class="glass participant-header">
+    {% if p.foto %}
+        <img class="participant-photo-large" src="{{ p.foto.url }}" alt="{{ p.nombre }}">
+    {% else %}
+        <img class="participant-photo-large" src="{% static 'main/img/default.png' %}" alt="{{ p.nombre }}">
+    {% endif %}
+
+    <h1>{{ p.nombre }}</h1>
+    <p class="stats">{{ p.puntos_totales }} puntos <i class="ph ph-star"></i></p>
+
+    <div class="profile-buttons">
+
+        {% if ha_votado %}
+            <button class="btn-disabled" disabled>Ya votaste hoy <i class="ph ph-arrow-circle-up"></i></button>
+        {% else %}
+            <form method="POST" action="{% url 'votar' p.id %}">
+                {% csrf_token %}
+                <button class="btn-primary">Votar</button>
+            </form>
+        {% endif %}
+
+        {% if alianza %}
+            <button class="btn-secondary">Aliado <i class="ph ph-heart"></i></button>
+        {% else %}
+            <form method="POST" action="{% url 'aliarse' p.id %}">
+                {% csrf_token %}
+                <button class="btn-primary">Aliarme</button>
+            </form>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- VIDEOS TOP -->
+<section class="glass">
+    <h2>Mejores momentos</h2>
+    <div class="videos-grid">
+        {% for vid in videos %}
+            <div class="video-card">
+                <img src="{{ vid.thumbnail }}" class="video-thumb">
+                <a href="{{ vid.url_video }}" target="_blank" class="btn-ver">Ver</a>
+            </div>
+        {% empty %}
+            <p>No hay vídeos todavía.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- RETOS -->
+<section class="glass retosbackground">
+    <h2>Retos</h2>
+    {% for r in retos %}
+        <div class="reto-card">
+            <strong>{{ r.fecha|date:"d M Y" }}</strong>
+            <p>{{ r.texto }}</p>
+        </div>
+    {% empty %}
+        <p>No tiene retos aún.</p>
+    {% endfor %}
+</section>
+
+{% endblock %}

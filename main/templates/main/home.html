@@ -1,0 +1,99 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero glass">
+    <div class="hero-title">🔴 EN DIRECTO</div>
+    <div class="hero-sub">Reto: “El baile del gallo cósmico” — Falete</div>
+    <div class="hero-timer">⏳ Termina en 03:22:54</div>
+    <button class="btn-primary">Ver reto</button>
+</section>
+
+<!-- RANKING -->
+<section class="glass animate-fadein">
+    <h2>Ranking</h2>
+    <ul class="rank-list">
+        {% for p in participantes %}
+        <li>
+            {% if p.foto %}
+                <img class="imgRanking" src="{{ p.foto.url }}" alt="{{ p.nombre }}">
+            {% else %}
+                <img class="imgRanking" src="{% static 'main/img/default.png' %}" alt="{{ p.nombre }}">
+            {% endif %}
+
+            <div class="rank-info">
+                <a class="rank-name" href="{% url 'participante_detalle' p.id %}">
+                    {{ p.nombre }}
+                </a>
+                <span class="rank-points">{{ p.puntos_totales }} pts</span>
+            </div>
+
+            {% if request.user.is_authenticated and p.id in votos_usuario %}
+                <button class="btn-disabled" disabled>✔</button>
+            {% else %}
+                <form method="POST" action="{% url 'votar' p.id %}">
+                    {% csrf_token %}
+                    <button class="btn-votar">Votar</button>
+                </form>
+            {% endif %}
+
+        </li>
+        {% endfor %}
+
+    </ul>
+</section>
+
+
+<section class="panel-aliado glass animate-pop">
+    <h2 class="ali-title">Tu Alianza</h2>
+
+    {% if aliado %}
+        <div class="aliado-card">
+
+            <!-- FOTO -->
+            <div class="aliado-photo-wrapper">
+                <img class="aliado-photo" src="{{ aliado.participante.foto.url }}" alt="{{ aliado.participante.nombre }}">
+            </div>
+
+            <!-- INFO -->
+            <div class="aliado-info">
+                <h3 class="aliado-name">
+                    {{ aliado.participante.nombre }}
+                    
+                </h3>
+
+                <p class="aliado-meta"><strong>Desde:</strong> {{ aliado.fecha_inicio|date:"d/ m" }}</p>
+                <p class="aliado-meta"><strong>Puntos:</strong> {{ aliado.participante.puntos_totales }}</p>
+
+                <!-- Progreso de afinidad ficticio -->
+                <div class="aliado-progress">
+                    <div class="aliado-progress-fill" style="width: {{ aliado.participante.votos_recibidos|divisibleby:100 }}%;"></div>
+                </div>
+                <p class="aliado-progress-label">Afinidad del público</p>
+
+                <!-- BOTONES -->
+                <div class="aliado-buttons">
+                    <a href="{% url 'participante_detalle' aliado.participante.id %}" class="btn-glow">Ver perfil</a>
+                    <a href="{% url 'participantes' %}" class="btn-secondary">Cambiar aliado</a>
+                </div>
+
+            </div>
+        </div>
+
+    {% else %}
+        <p class="no-aliado">No tienes aliado aún.</p>
+        <a href="{% url 'participantes' %}" class="btn-glow">Elegir aliado</a>
+    {% endif %}
+</section>
+
+<!-- TOP VIDEOS -->
+<section class="panel glass full">
+    <h2>TOP VIDEOS</h2>
+    <button class="btn-primary">Ver video</button>
+</section>
+
+{% endblock %}

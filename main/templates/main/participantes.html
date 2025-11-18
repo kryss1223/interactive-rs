@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Participantes{% endblock %}
+
+{% block content %}
+
+<h1 class="title-page">Participantes</h1>
+
+<div class="participants-grid">
+
+    {% for p in participantes %}
+    <div class="participant-card glass">
+
+        {% if p.foto %}
+            <img src="{{ p.foto.url }}" class="participant-photo" alt="{{ p.nombre }}">
+        {% else %}
+            <img src="{% static 'main/img/default.png' %}" class="participant-photo" alt="{{ p.nombre }}">
+        {% endif %}
+
+        <h3 class="participant-name">{{ p.nombre }}</h3>
+        <p class="participant-points">{{ p.puntos_totales }} <i class="ph ph-star"></i></p>
+
+        <div class="participant-socials">
+            <a href="{{ p.tiktok }}" target="_blank">🎵 TikTok</a>
+            <a href="{{ p.instagram }}" target="_blank">📸 Instagram</a>
+        </div>
+
+        {% if request.user.is_authenticated and p.id in votos_usuario %}
+            <button class="btn-disabled" disabled>✔</button>
+        {% else %}
+            <form method="POST" action="{% url 'votar' p.id %}">
+                {% csrf_token %}
+                <button class="btn-votar">Votar</button>
+            </form>
+        {% endif %}
+
+        <a class="btn-primary" href="{% url 'participante_detalle' p.id %}">
+            Ver más
+        </a>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

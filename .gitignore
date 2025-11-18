@@ -1,0 +1,28 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# SQLite DB
+*.sqlite3
+db.sqlite3
+
+# Archivos temporales
+*.log
+*.pot
+*.pyc
+*.pyo
+*.mo
+
+# Django
+staticfiles/
+media/
+
+# Render build artifacts
+build/
+dist/

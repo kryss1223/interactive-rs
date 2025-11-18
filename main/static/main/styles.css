@@ -1,0 +1,751 @@
+* {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+body {
+    
+    font-family: 'Poppins', sans-serif;
+   background: #2A7B9B;
+   background: linear-gradient(90deg, rgb(29, 5, 2) 0%, rgb(151, 30, 0) 50%, rgb(202, 36, 3) 100%);
+    color: #ffffff;
+    width: 0 auto;
+    margin-bottom: 10%;
+}
+
+.animate-fadein {
+    animation: fadeIn 0.7s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+
+a {
+    margin: 5%;
+    width: fit-content;
+    display: block;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+.container-navbar{
+    display: flex;
+    width: 100%;
+    height: max-content;
+    max-width: 1000px; /* ancho máximo bonito de app */
+    margin: 0 auto;    /* centra horizontalmente */
+    min-height: 100vh;
+
+}
+.container {
+    display: flex;
+    width: 50%;
+    max-width: 1400px; /* ancho máximo bonito de app */
+    margin: 0 auto;    /* centra horizontalmente */
+
+}
+
+
+/* Barra lateral */
+.sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+
+    z-index: 999;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    background: rgba(255,255,255,0.07);
+    border-top: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+
+    animation: fadeIn 0.5s ease;
+}
+
+
+.nav-icon {
+    text-align: center;
+    padding: 0.5rem 0;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.content {
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.glass {
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 1.8rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    backdrop-filter: blur(18px);
+    animation: fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+/* HERO */
+.hero-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+.hero-sub {
+    margin-top: 0.5rem;
+    opacity: 0.9;
+}
+.hero-timer {
+    margin: 0.7rem 0;
+    opacity: 0.8;
+}
+.btn-primary {
+    background: linear-gradient(135deg, #ffc76a, #ffae42);
+    border: none;
+    padding: 0.8rem 1.4rem;
+    border-radius: 12px;
+    color: #000;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(255,190,80,0.3);
+    transition: 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255,190,80,0.6);
+}
+
+
+.btn-secondary {
+    background: #f9f9f9dc;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+    color: #000;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: block;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+.rank-list li {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 15px;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 210, 9, 0.358);
+    transition: 0.25s ease;
+}
+
+.rank-list li:hover {
+    transform: scale(1.02);
+    background: rgba(255,255,255,0.06);
+}
+
+
+
+/* Imagen del participante rankings */
+.imgRanking {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Bloque del nombre + puntos */
+.rank-info {
+    display: inline;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Medal + name + points */
+.rank-medal {
+    font-size: 1.2rem;
+}
+
+.rank-name {
+    font-weight: bold;
+}
+
+.rank-points {
+    opacity: 0.7;
+    font-size: 0.90 rem;
+    margin-left: 10%;
+    text-decoration:solid;
+    color: #fff200;
+}
+
+/* Botón votar */
+.btn-votar {
+    background: #ffffffbb;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #000;
+}
+
+.reto-card {
+    margin-top: 1rem;
+}
+
+.full {
+    grid-column: span 2;
+}
+
+
+.panel-aliado{
+    display: block;
+    background: rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    animation: fadeIn 0.5s ease;
+    
+}
+/* Imagen del participante aliado home */
+.imgAliado {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: inline;
+}
+
+.panel-aliado p{
+    display: inline;
+}
+
+/* Título de la página */
+.title-page {
+    font-size: 2rem;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+/* Grid de participantes */
+.participants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 2rem;
+}
+
+/* Tarjeta */
+.participant-card {
+    background: rgba(255,255,255,0.05);
+    padding: 1.2rem;
+    border-radius: 18px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.25s ease;
+}
+
+.participant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+
+/* Foto circular grande */
+.participant-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 16px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* Nombre y puntos */
+.participant-name {
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.participant-points {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin: 0.3rem 0 1rem;
+}
+
+/* Redes sociales */
+.participant-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.participant-socials a {
+    padding: 0.3rem 0.6rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+
+
+
+.participant-header {
+    text-align: center;
+}
+
+.participant-photo-large {
+    width: 160px;
+    height: 160px;
+    border-radius: 16px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid rgba(255,255,255,0.2);
+}
+
+.stats {
+    opacity: 0.8;
+    margin-bottom: 1rem;
+}
+
+.profile-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Videos grid */
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.video-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.video-thumb {
+    width: 100%;
+    height: 250px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.btn-ver {
+    text-align: center;
+    display: block;
+    padding: 0.4rem;
+    border-radius: 8px;
+    background: #f3b94c;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Retos */
+.retos-playground{
+    background: #ffa2004b;
+}
+.reto-card {
+    background: rgba(255,255,255,0.05);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+.retos-playground-marcos{
+    border: 1px solid #ffffffa0;
+    border-radius: 5px;
+    padding: 2%;
+    width: fit-content;
+}
+.retos-playground h3{
+    color: #ff5e00;
+    font-size: larger;
+}
+.retos-playground-buttonstyle{
+    margin: 5%;
+}
+
+.panel {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.donacion-card {
+    margin-bottom: 1rem;
+}
+
+.donacion-bar {
+    background: rgba(255,255,255,0.2);
+    height: 12px;
+    border-radius: 10px;
+    margin: 0.5rem 0;
+    overflow: hidden;
+}
+
+.donacion-bar-fill {
+    background: #f3b94c;
+    height: 100%;
+    transition: width 0.4s ease;
+}
+
+.eliminado-card {
+    background: rgba(255,0,0,0.15);
+    padding: 0.6rem;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+}
+
+
+
+/* PLAYGROUND NUEVOS ESTILOS */
+/* TITULO */
+.neon-title {
+    font-size: 2.4rem;
+    text-shadow: 0 0 10px #d8b4ff;
+    margin-bottom: 1.5rem;
+}
+
+/* SECCIONES */
+.playground-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    color: #f7e7c3;
+    text-shadow: 0px 0px 8px rgba(255,255,255,0.4);
+}
+
+/* GRID PARA CARTAS */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+/* TARJETAS BASE */
+.glow-card {
+    background: rgba(255,255,255,0.1);
+    padding: 1.4rem;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 0 15px rgba(136, 74, 255, 0.2);
+    transition: 0.25s ease;
+}
+
+.glow-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 0 25px rgba(200, 140, 255, 0.35);
+}
+
+/* TARJETAS ROJAS PARA ELIMINADOS */
+.glow-card-red {
+    background: rgba(255, 30, 80, 0.12);
+    border: 1px solid rgba(255, 60, 60, 0.3);
+    box-shadow: 0 0 15px rgba(255, 60, 60, 0.25);
+}
+
+.glow-card-red:hover {
+    box-shadow: 0 0 25px rgba(255, 80, 80, 0.4);
+}
+
+/* CONTENIDO DE RETOS */
+.reto-participante {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.reto-text {
+     display: -webkit-box;
+    -webkit-line-clamp: 3;   /* ← Cambia este número */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3.1rem;
+    line-height: 1.5rem;
+    margin: 0.6rem 0;
+    opacity: 0.9;
+}
+
+.reto-fecha {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* DONACIONES */
+.don-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.don-desc {
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+.don-progress-bar {
+    background: rgba(255,255,255,0.2);
+    height: 12px;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+}
+
+.don-progress-fill {
+    background: linear-gradient(90deg, #d28aff, #c56bff);
+    height: 100%;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px #c56bff;
+}
+
+.don-input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+}
+
+/* ELIMINADOS */
+.elim-card {
+    text-align: center;
+}
+
+.elim-photo {
+    width: 50%;
+    border-radius: 10%;
+    padding: 5%;
+}
+
+.elim-name {
+    color: #ffd1d1;
+}
+
+/* BOTÓN GLOW */
+.btn-glow {
+    background: linear-gradient(135deg, #ffcb74, #ffae3d);
+    color: #000;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    border: none;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(255, 180, 65, 0.4);
+    transition: 0.25s ease;
+}
+
+.btn-glow:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(255, 200, 100, 0.6);
+}
+
+/* ANIMACIONES */
+.animate-pop {
+    animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+
+/* TÍTULO */
+.ali-title {
+    font-size: 1.6rem;
+    text-shadow: 0 0 8px #ffdb8a;
+    margin-bottom: 1rem;
+}
+
+/* CARD */
+.aliado-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* FOTO */
+.aliado-photo-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255,255,255,0.2);
+    box-shadow: 0 0 15px rgba(255,230,150,0.4);
+    backdrop-filter: blur(5px);
+}
+
+.aliado-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* INFO */
+.aliado-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.aliado-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.aliado-icon {
+    color: #ffd86b;
+    text-shadow: 0 0 6px #ffd86b;
+}
+
+/* META */
+.aliado-meta {
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* PROGRESO */
+.aliado-progress {
+    width: 100%;
+    background: rgba(255,255,255,0.12);
+    height: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 0.4rem;
+}
+
+.aliado-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffcb74, #ffae2e);
+    box-shadow: 0 0 12px rgba(255,200,90,0.7);
+    transition: width 0.4s ease;
+}
+
+.aliado-progress-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 0.2rem;
+}
+
+/* BOTONES */
+.aliado-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.no-aliado {
+    opacity: 0.7;
+}
+
+
+/* 🔵 Móviles (pantallas menores a 768px) */
+@media (max-width: 768px) {
+
+    /* El contenedor se hace fluido */
+    .container {
+        margin: 0;
+        padding: 0;
+        flex-direction: column;
+    }
+
+    /* Sidebar pasa abajo estilo menú */
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%; 
+        height: 70px;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0.5rem 1rem;
+        backdrop-filter: blur(16px);
+        border-radius: 0;
+        margin: 0;
+        border-top: 1px solid rgba(255,255,255,0.15);
+        border-right: none;
+    }
+
+    .nav-icon {
+        font-size: 1.4rem;
+        padding: 0.3rem;
+    }
+
+    /* El contenido se ensancha correctamente */
+    .content {
+        padding: 1rem;
+        margin-bottom: 80px; /* para que no tape el sidebar móvil */
+    }
+
+    /* Glass panels más compactos */
+    .glass {
+        padding: 1rem;
+    }
+
+    /* Ranking */
+    .rank-list li {
+        padding: 0.8rem;
+        gap: 0.7rem;
+    }
+
+    .imgRanking {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Participant cards: 1 por fila */
+    .participants-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    /* Fotos grandes adaptadas */
+    .participant-photo-large {
+        width: 120px;
+        height: 120px;
+    }
+
+    /* Playground responsive */
+    .playground-section {
+        padding: 1rem !important;
+    }
+
+    .reto-card, .donacion-card, .eliminado-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
