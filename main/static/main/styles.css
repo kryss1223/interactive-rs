@@ -2,14 +2,26 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+
+@media (max-width: 900px) {
+    * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+    a {
+        margin: 3% auto;
+        max-width: 100%;
+    }
+}
+
+
 body {
     
     font-family: 'Poppins', sans-serif;
    background: #2A7B9B;
    background: linear-gradient(90deg, rgb(29, 5, 2) 0%, rgb(151, 30, 0) 50%, rgb(202, 36, 3) 100%);
     color: #ffffff;
-    width: 0 auto;
-    margin-bottom: 10%;
 }
 
 .animate-fadein {
@@ -31,21 +43,12 @@ a {
     color: inherit;
 }
 
-.container-navbar{
-    display: flex;
-    width: 100%;
-    height: max-content;
-    max-width: 1000px; /* ancho máximo bonito de app */
-    margin: 0 auto;    /* centra horizontalmente */
-    min-height: 100vh;
-
-}
 .container {
     display: flex;
-    width: 50%;
+    width: 100%;
     max-width: 1400px; /* ancho máximo bonito de app */
     margin: 0 auto;    /* centra horizontalmente */
-
+    padding-bottom: 20%;
 }
 
 
@@ -78,8 +81,11 @@ a {
     cursor: pointer;
 }
 
+
+
+
 .content {
-    padding: 2rem;
+    margin: 0 auto;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -672,80 +678,3 @@ a {
     opacity: 0.7;
 }
 
-
-/* 🔵 Móviles (pantallas menores a 768px) */
-@media (max-width: 768px) {
-
-    /* El contenedor se hace fluido */
-    .container {
-        margin: 0;
-        padding: 0;
-        flex-direction: column;
-    }
-
-    /* Sidebar pasa abajo estilo menú */
-    .sidebar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%; 
-        height: 70px;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 0.5rem 1rem;
-        backdrop-filter: blur(16px);
-        border-radius: 0;
-        margin: 0;
-        border-top: 1px solid rgba(255,255,255,0.15);
-        border-right: none;
-    }
-
-    .nav-icon {
-        font-size: 1.4rem;
-        padding: 0.3rem;
-    }
-
-    /* El contenido se ensancha correctamente */
-    .content {
-        padding: 1rem;
-        margin-bottom: 80px; /* para que no tape el sidebar móvil */
-    }
-
-    /* Glass panels más compactos */
-    .glass {
-        padding: 1rem;
-    }
-
-    /* Ranking */
-    .rank-list li {
-        padding: 0.8rem;
-        gap: 0.7rem;
-    }
-
-    .imgRanking {
-        width: 40px;
-        height: 40px;
-    }
-
-    /* Participant cards: 1 por fila */
-    .participants-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1rem !important;
-    }
-
-    /* Fotos grandes adaptadas */
-    .participant-photo-large {
-        width: 120px;
-        height: 120px;
-    }
-
-    /* Playground responsive */
-    .playground-section {
-        padding: 1rem !important;
-    }
-
-    .reto-card, .donacion-card, .eliminado-card {
-        flex-direction: column;
-        text-align: center;
-    }
-}
