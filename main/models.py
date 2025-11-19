@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser  # 👈 Usamos el modelo base
 from django.utils import timezone
+import re
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=50, unique=True)
@@ -136,11 +137,22 @@ class VideoTop(models.Model):
     participante = models.ForeignKey(Participante, on_delete=models.CASCADE)
     fecha_subida = models.DateTimeField(default=timezone.now)
     url_video = models.URLField()
+    def thumbnail(self):
+        youtube_patterns = [
+            r"v=([A-Za-z0-9_-]+)",
+            r"youtu\.be/([A-Za-z0-9_-]+)",
+            r"shorts/([A-Za-z0-9_-]+)",
+            r"embed/([A-Za-z0-9_-]+)",
+            r"live/([A-Za-z0-9_-]+)",
+        ]
 
-    def __str__(self):
-        return f"Top video de {self.participante.nombre}"
+        for pattern in youtube_patterns:
+            match = re.search(pattern, self.url_video)
+            if match:
+                video_id = match.group(1)
+                return f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
 
-
+        return None
 # ───────────────────────────────
 # ENCUESTAS
 # ───────────────────────────────

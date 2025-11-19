@@ -48,9 +48,11 @@
                 <a class="nav-icon" href="{% url 'participantes' %}"><i class="ph ph-star"></i>
 </a>
             {% endif %}
-            <a href="{% url 'logout' %}" class="nav-icon">🚪</a>
+            <a href="{% url 'logout' %}" class="nav-icon"><i class="bi bi-door-closed"></i>
+</a>
         {% else %}
-            <a href="{% url 'login' %}" class="nav-icon">🔑</a>
+            <a href="{% url 'login' %}" class="nav-icon"><i class="bi bi-box-arrow-in-right"></i>
+</a>
         {% endif %}
     </div>
     

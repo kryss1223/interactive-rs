@@ -98,7 +98,7 @@ def votar(request, pk):
     except:
         pass  # ya votó hoy
 
-    return redirect('participante_detalle', pk=pk)
+    return redirect('home', pk=pk)
 
 def aliarse(request, pk):
     if not request.user.is_authenticated:
@@ -197,22 +197,24 @@ def donar_puntos(request, objetivo_id):
 
     if request.method == "POST":
         cantidad = int(request.POST.get("puntos", 0))
+        if cantidad >200:
+            # registrar o actualizar la donación del usuario
+            reg, creado = DonacionUsuario.objects.get_or_create(
+                usuario=request.user,
+                objetivo=objetivo
+            )
+            reg.puntos_donados += cantidad
+            reg.save()
 
-        # registrar o actualizar la donación del usuario
-        reg, creado = DonacionUsuario.objects.get_or_create(
-            usuario=request.user,
-            objetivo=objetivo
-        )
-        reg.puntos_donados += cantidad
-        reg.save()
+            # sumar al objetivo
+            objetivo.puntos_actuales += cantidad
 
-        # sumar al objetivo
-        objetivo.puntos_actuales += cantidad
+            # comprobar si se completó
+            if objetivo.puntos_actuales >= objetivo.puntos_necesarios:
+                objetivo.activo = False
 
-        # comprobar si se completó
-        if objetivo.puntos_actuales >= objetivo.puntos_necesarios:
-            objetivo.activo = False
-
-        objetivo.save()
+            objetivo.save()
+        else: 
+            None
 
         return redirect("playground")
