@@ -5,17 +5,17 @@
 
 {% block content %}
 
-<h1 class="title-page neon-title">Zona Activa</h1>
+<h1 class="title-page neon-title">🔥Zona Activa🔥</h1>
 
 <!-- RETOs ACTIVOs -->
 <section class="glass neon-card panel playground-section animate-pop">
-    <h2 class="section-title">🔥 Retos activos</h2>
+    <h2 class="section-title"><i class="bi bi-fire"></i> Retos activos</h2>
     <div class="cards-grid">
         {% for r in retos_participantes %}
         <div class="reto-card glow-card">
             <span class="reto-participante">{{ r.participante.nombre }}</span>
             <p class="reto-text">{{ r.texto }}</p>
-            <span class="reto-fecha">{{ r.fecha|date:"d M H:i" }}</span>
+            <span class="reto-fecha">Activa desde: {{ r.fecha|date:"d / H:i" }}</span>
             <a href="{% url 'participante_detalle' r.participante.id %}" class="btn-glow">Ver</a>
         </div>
         {% empty %}
@@ -27,7 +27,7 @@
 
 <!-- OBJETIVOS DE DONACIÓN -->
 <section class="glass neon-card playground-section animate-pop">
-    <h2 class="section-title">❤️ Objetivos colectivos</h2>
+    <h2 class="section-title"><i class="bi bi-gift-fill"></i> Donaciones</h2>
     <div class="cards-grid">
             {% for o in objetivos %}
             <div class="don-card glow-card">
@@ -57,7 +57,7 @@
 
 <!-- ELIMINADOS -->
 <section class="glass neon-card playground-section animate-pop">
-    <h2 class="section-title" style="color:#ff4d7b;">💀 Eliminados</h2>
+    <h2 class="section-title" > <i class="bi bi-person-x-fill"></i> Eliminados</h2>
 
     <div class="cards-grid">
         {% for p in eliminados %}

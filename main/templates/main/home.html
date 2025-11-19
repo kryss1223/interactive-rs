@@ -7,20 +7,24 @@
 
 <!-- HERO -->
 <section class="hero glass">
-    <div class="hero-title">🔴 EN DIRECTO</div>
-    <div class="hero-sub">Reto: “El baile del gallo cósmico” — Falete</div>
-    <div class="hero-timer">⏳ Termina en 03:22:54</div>
-    <button class="btn-primary">Ver reto</button>
+    <div class="hero-live">LIVE</div>
+    <div class="hero-sub">Día 1: La Casa de los Gemelos</div>
+    <div class="hero-timer"><i class="bi bi-clock"></i> Termina en 03:22:54</div>
+    <img src="{% static 'main/img/fondolacasadelosgemelos.jpg' %}" alt="imgdirecto">
+    <button class="btn-primary">Comenzar a ver</button>
 </section>
 
 <!-- RANKING -->
 <section class="glass animate-fadein">
-    <h2>Ranking</h2>
+    <h2 class="ali-title">RANKING</h2>
     <ul class="rank-list">
         {% for p in participantes %}
         <li>
+            <span class="rank-pos">{{ forloop.counter }}</span>
             {% if p.foto %}
-                <img class="imgRanking" src="{{ p.foto.url }}" alt="{{ p.nombre }}">
+                <div class="rank-img-wrapper">
+                    <img class="imgRanking" src="{{ p.foto.url }}" alt="{{ p.nombre }}">
+                </div>
             {% else %}
                 <img class="imgRanking" src="{% static 'main/img/default.png' %}" alt="{{ p.nombre }}">
             {% endif %}
@@ -29,7 +33,7 @@
                 <a class="rank-name" href="{% url 'participante_detalle' p.id %}">
                     {{ p.nombre }}
                 </a>
-                <span class="rank-points">{{ p.puntos_totales }} pts</span>
+                <span class="rank-points">{{ p.puntos_totales }} <i class="bi bi-lightning-charge-fill"></i></span>
             </div>
 
             {% if request.user.is_authenticated and p.id in votos_usuario %}
@@ -49,7 +53,7 @@
 
 
 <section class="panel-aliado glass animate-pop">
-    <h2 class="ali-title">Tu Alianza</h2>
+    <h2 class="ali-title">TEAM</h2>
 
     {% if aliado %}
         <div class="aliado-card">
@@ -66,20 +70,20 @@
                     
                 </h3>
 
-                <p class="aliado-meta"><strong>Desde:</strong> {{ aliado.fecha_inicio|date:"d/ m" }}</p>
-                <p class="aliado-meta"><strong>Puntos:</strong> {{ aliado.participante.puntos_totales }}</p>
+                <p class="aliado-meta"><strong>Desde:</strong> {{ dias_aliado }} día{% if dias_aliado != 1 %}s{% endif %}</p>
+                <p class="aliado-meta"><strong>Puntos:</strong> {{ aliado.participante.puntos_totales }} <i class="bi bi-lightning-charge-fill"></i></p>
 
-                <!-- Progreso de afinidad ficticio -->
+               {% widthratio aliado.participante.votos_recibidos 500 100 as afinidad %}
                 <div class="aliado-progress">
-                    <div class="aliado-progress-fill" style="width: {{ aliado.participante.votos_recibidos|divisibleby:100 }}%;"></div>
+                    <div class="aliado-progress-fill" style="width: {{ afinidad }}%;"></div>
                 </div>
-                <p class="aliado-progress-label">Afinidad del público</p>
+                <p class="aliado-progress-label">Afinidad del público ({{ afinidad }}%)</p>
+
 
                 <!-- BOTONES -->
-                <div class="aliado-buttons">
-                    <a href="{% url 'participante_detalle' aliado.participante.id %}" class="btn-glow">Ver perfil</a>
-                    <a href="{% url 'participantes' %}" class="btn-secondary">Cambiar aliado</a>
-                </div>
+                
+                    <a href="{% url 'participante_detalle' aliado.participante.id %}" class="btn-primary">Ver perfil</a>
+                
 
             </div>
         </div>
@@ -91,9 +95,36 @@
 </section>
 
 <!-- TOP VIDEOS -->
-<section class="panel glass full">
-    <h2>TOP VIDEOS</h2>
-    <button class="btn-primary">Ver video</button>
+<section class="panel glass top-videos-section animate-fadein">
+    <h2 class="top-videos-title">🎥 TOP VIDEOS</h2>
+
+    <div class="top-videos-list">
+        {% for v in top_videos %}
+            <div class="top-video-item">
+
+                <!-- Miniatura = foto del participante -->
+                <img src="{{ v.participante.foto.url }}" class="top-video-thumb" alt="Foto participante">
+
+                <div class="top-video-info">
+                    <!-- Nombre del participante -->
+                    <p class="top-video-name">{{ v.participante.nombre }}</p>
+                    <p>Se tira a la piscina con Maeb</p>
+                    <!-- Fecha del video -->
+                    <p class="top-video-date">
+                        {{ v.fecha_subida|date:"d/m/Y H:i" }}
+                    </p>
+
+                    <!-- Botón para ver el video -->
+                    <a href="{{ v.url_video }}" target="_blank" class="top-video-btn">Ver video</a>
+                </div>
+
+            </div>
+        {% empty %}
+            <p class="no-videos">No hay videos aún</p>
+        {% endfor %}
+    </div>
 </section>
+
+
 
 {% endblock %}

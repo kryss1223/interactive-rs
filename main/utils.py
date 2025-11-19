@@ -1,10 +1,10 @@
 from django.utils import timezone
-from .models import Alianza, Voto
+from .models import Alianza, Voto, User
 from datetime import datetime
 
 def get_user_status(user):
     """
-    Devuelve TODA la info común del usuario:
+    Devuelve TODA la info común del usuario frente a su aliado:
     - aliado actual
     - id del aliado
     - si tiene alianza activa
@@ -33,10 +33,18 @@ def get_user_status(user):
         votos = Voto.objects.filter(usuario=user, fecha__date=hoy)
         votos_usuario = {v.participante.id: True for v in votos}
 
+    # 3. Obtener puntos de usuario
+    puntos_usuario = 0
+    # Puntos del usuario
+    puntos_usuario = 0
+    if user.is_authenticated:
+        puntos_usuario = user.puntos if hasattr(user, 'puntos') else 0
+
     return {
         "aliado": aliado,
         "es_aliado": aliado is not None,
         "id_aliado": aliado.participante.id if aliado else None,
         "dias_aliado": dias_aliado,
         "votos_usuario": votos_usuario,
+        "puntos_usuario": puntos_usuario,
     }

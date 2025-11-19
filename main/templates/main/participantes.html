@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h1 class="title-page">Participantes</h1>
+<h1 class="title-page ali-title">Participantes</h1>
 
 <div class="participants-grid">
 
@@ -19,7 +19,7 @@
         {% endif %}
 
         <h3 class="participant-name">{{ p.nombre }}</h3>
-        <p class="participant-points">{{ p.puntos_totales }} <i class="ph ph-star"></i></p>
+        <p class="participant-points">{{ p.puntos_totales }}<i class="bi bi-lightning-charge-fill"></i></p>
 
         <div class="participant-socials">
             <a href="{{ p.tiktok }}" target="_blank">🎵 TikTok</a>
@@ -35,7 +35,7 @@
             </form>
         {% endif %}
 
-        <a class="btn-primary" href="{% url 'participante_detalle' p.id %}">
+        <a class="btn-secondary" href="{% url 'participante_detalle' p.id %}">
             Ver más
         </a>
 

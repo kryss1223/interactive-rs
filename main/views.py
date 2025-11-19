@@ -11,8 +11,25 @@ def home(request):
     participantes = Participante.objects.all().order_by('-puntos_totales')
     info = get_user_status(request.user)
 
+    #AFINIDAD PUBLICO Participante
+    # Obtener el valor más alto
+    if participantes:
+        top_votos = participantes[0].votos_recibidos
+    else:
+        top_votos = 1  # para evitar división por cero
+
+    # Calcular afinidad por cada participante
+    for p in participantes:
+        if top_votos > 0:
+            p.afinidad = round((p.votos_recibidos / top_votos) * 100, 2)
+        else:
+            p.afinidad = 0
+
+    top_videos = VideoTop.objects.all().order_by('-fecha_subida')
+
     context = {
         'participantes': participantes,
+        'top_videos': top_videos,
         **info   # <--- unimos toda la info del utils
     }
     return render(request, 'main/home.html', context)
@@ -160,6 +177,7 @@ def playground(request):
 
     # Objetivos colectivos activos (donaciones)
     objetivos = ObjetivoDonacion.objects.filter(activo=True)
+
 
     context = {
         **info,

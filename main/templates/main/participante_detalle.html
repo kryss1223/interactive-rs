@@ -13,7 +13,7 @@
     {% endif %}
 
     <h1>{{ p.nombre }}</h1>
-    <p class="stats">{{ p.puntos_totales }} puntos <i class="ph ph-star"></i></p>
+    <p class="stats">{{ p.puntos_totales }} puntos <i class="bi bi-lightning-charge-fill"></i></p>
 
     <div class="profile-buttons">
 
@@ -60,6 +60,7 @@
         <div class="reto-card">
             <strong>{{ r.fecha|date:"d M Y" }}</strong>
             <p>{{ r.texto }}</p>
+            <p style="color: green;">Completada</p>
         </div>
     {% empty %}
         <p>No tiene retos aún.</p>
