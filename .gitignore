@@ -17,9 +17,6 @@ __pycache__/
 *.pyo
 *.mo
 
-# Django
-staticfiles/
-media/
 
 # Render build artifacts
 build/
