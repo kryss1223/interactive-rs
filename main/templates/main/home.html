@@ -16,7 +16,7 @@
 
 <!-- RANKING -->
 <section class="glass animate-fadein">
-    <h2 class="ali-title">RANKING</h2>
+    <h2 class="ali-title"><i class="bi bi-trophy-fill"></i> RANKING</h2>
     <ul class="rank-list">
         {% for p in participantes %}
         <li>
@@ -53,7 +53,7 @@
 
 
 <section class="panel-aliado glass animate-pop">
-    <h2 class="ali-title">TEAM</h2>
+    <h2 class="ali-title"><i class="bi bi-people-fill"></i> TEAM</h2>
 
     {% if aliado %}
         <div class="aliado-card">
@@ -96,7 +96,7 @@
 
 <!-- TOP VIDEOS -->
 <section class="panel glass top-videos-section animate-fadein">
-    <h2 class="top-videos-title">🎥 TOP VIDEOS</h2>
+    <h2 class="ali-title"><i class="bi bi-camera-reels-fill"></i> TOP VIDEOS</h2>
 
     <div class="top-videos-list">
         {% for v in top_videos %}
@@ -108,7 +108,7 @@
                 <div class="top-video-info">
                     <!-- Nombre del participante -->
                     <p class="top-video-name">{{ v.participante.nombre }}</p>
-                    <p>Se tira a la piscina con Maeb</p>
+                    
                     <!-- Fecha del video -->
                     <p class="top-video-date">
                         {{ v.fecha_subida|date:"d/m/Y H:i" }}

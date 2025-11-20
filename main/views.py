@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, RegistroForm
 from datetime import date
 from django.utils import timezone
+from django.contrib import messages
 from .utils import get_user_status
 
 
@@ -88,49 +89,125 @@ def participante_detalle(request, pk):
         'numero_aliados': numero_aliados,
         'ha_votado': ha_votado,
     })
+
+COSTE_VOTO = 10
+
 def votar(request, pk):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    participante = Participante.objects.get(pk=pk)
+    usuario = request.user
+    participante = get_object_or_404(Participante, pk=pk)
 
-    # Intentamos crear voto
-    try:
-        Voto.objects.create(
-            usuario=request.user,
-            participante=participante,
-            fecha=timezone.now()
-        )
-        participante.votos_recibidos += 1
-        participante.puntos_totales += 10  # ejemplo
-        participante.save()
+    # 1. Comprobar puntos suficientes
+    if usuario.puntos < COSTE_VOTO:
+        messages.error(request, "No tienes puntos suficientes para votar.")
+        return redirect('participante_detalle', pk=pk)
 
-    except:
-        pass  # ya votó hoy
+    # 2. Evitar voto duplicado el mismo día
+    ya_voto_hoy = Voto.objects.filter(
+        usuario=usuario,
+        participante=participante,
+        fecha__date=timezone.now().date()
+    ).exists()
 
+    if ya_voto_hoy:
+        messages.error(request, "Ya votaste hoy a este participante.")
+        return redirect('participante_detalle', pk=pk)
+
+    # 3. Restar puntos al usuario
+    usuario.puntos -= COSTE_VOTO
+    usuario.save()
+
+    # 4. Registrar el voto y sumar puntos al participante
+    Voto.objects.create(
+        usuario=usuario,
+        participante=participante,
+        fecha=timezone.now()
+    )
+
+    participante.votos_recibidos += 1
+    participante.puntos_totales += 10  # si quieres que solo valga 1 voto = 10 pts
+    participante.save()
+
+    messages.success(request, f"Has votado (-{COSTE_VOTO} puntos)")
     return redirect('participante_detalle', pk=pk)
+COSTE_ALIANZA = 50
 
 def aliarse(request, pk):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    participante = Participante.objects.get(pk=pk)
+    usuario = request.user
+    participante = get_object_or_404(Participante, pk=pk)
 
-    # Romper alianzas previas activas del usuario
+    # 1. Comprobar puntos
+    if usuario.puntos < COSTE_ALIANZA:
+        messages.error(request, "No tienes puntos suficientes para aliarte.")
+        return redirect('participante_detalle', pk=pk)
+
+    # 2. Cerrar alianzas actuales
     Alianza.objects.filter(
-        usuario=request.user, 
+        usuario=usuario,
         fecha_fin__isnull=True
-        ).update(fecha_fin=timezone.now())
+    ).update(fecha_fin=timezone.now())
 
-    # Crear la nueva
+    # 3. Restar puntos
+    usuario.puntos -= COSTE_ALIANZA
+    usuario.save()
+
+    # 4. Crear nueva alianza
     Alianza.objects.create(
-        usuario=request.user,
+        usuario=usuario,
         participante=participante,
         fecha_inicio=timezone.now()
     )
 
+    messages.success(request, f"Ahora eres aliado de {participante.nombre} (-{COSTE_ALIANZA} puntos)")
     return redirect('participante_detalle', pk=pk)
 
+def donar_puntos(request, objetivo_id):
+    if not request.user.is_authenticated:
+        return redirect("login")
+
+    usuario = request.user
+    objetivo = get_object_or_404(ObjetivoDonacion, id=objetivo_id)
+
+    if request.method == "POST":
+        cantidad = int(request.POST.get("puntos", 0))
+
+        # 1. Validación
+        if cantidad <= 0:
+            messages.error(request, "Debes donar una cantidad válida.")
+            return redirect("playground")
+
+        # 2. Comprobar puntos suficientes
+        if usuario.puntos < cantidad:
+            messages.error(request, "No tienes suficientes puntos.")
+            return redirect("playground")
+
+        # 3. Consumir puntos del usuario
+        usuario.puntos -= cantidad
+        usuario.save()
+
+        # 4. Registrar donación
+        reg, creado = DonacionUsuario.objects.get_or_create(
+            usuario=usuario,
+            objetivo=objetivo
+        )
+        reg.puntos_donados += cantidad
+        reg.save()
+
+        # 5. Actualizar objetivo
+        objetivo.puntos_actuales += cantidad
+
+        if objetivo.puntos_actuales >= objetivo.puntos_necesarios:
+            objetivo.activo = False
+
+        objetivo.save()
+
+        messages.success(request, f"Has donado {cantidad} puntos.")
+        return redirect("playground")
 
 
 def login_view(request):
@@ -199,32 +276,4 @@ def playground(request):
     return render(request, "main/playground.html", context)
 
 
-def donar_puntos(request, objetivo_id):
-    if not request.user.is_authenticated:
-        return redirect("login")
 
-    objetivo = get_object_or_404(ObjetivoDonacion, id=objetivo_id)
-
-    if request.method == "POST":
-        cantidad = int(request.POST.get("puntos", 0))
-        if cantidad >200:
-            # registrar o actualizar la donación del usuario
-            reg, creado = DonacionUsuario.objects.get_or_create(
-                usuario=request.user,
-                objetivo=objetivo
-            )
-            reg.puntos_donados += cantidad
-            reg.save()
-
-            # sumar al objetivo
-            objetivo.puntos_actuales += cantidad
-
-            # comprobar si se completó
-            if objetivo.puntos_actuales >= objetivo.puntos_necesarios:
-                objetivo.activo = False
-
-            objetivo.save()
-        else: 
-            None
-
-        return redirect("playground")

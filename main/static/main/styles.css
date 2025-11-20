@@ -194,6 +194,7 @@ a {
     display: inline-block;
     padding: 10px 18px;
     border-radius: 14px;
+    margin-top: 2%;
 
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
@@ -642,7 +643,7 @@ a {
     overflow: hidden;
 }
 
-.donacion-bar-fill {
+.don-progress-fill {
     background: #f3b94c;
     height: 100%;
     transition: width 0.4s ease;
@@ -754,10 +755,10 @@ a {
 }
 
 .don-progress-fill {
-    background: linear-gradient(90deg, #d28aff, #c56bff);
+    background: linear-gradient(90deg, #f9c126, #ff0000);
     height: 100%;
     transition: width 0.5s ease;
-    box-shadow: 0 0 10px #c56bff;
+    box-shadow: 0 0 10px #657cff;
 }
 
 .don-input {
@@ -766,8 +767,8 @@ a {
     border-radius: 8px;
     margin: 0.5rem 0;
     border: none;
-    background: rgba(255,255,255,0.15);
-    color: #fff;
+    background: rgba(255, 255, 255, 0.049);
+    color: #fff7f7d4;
 }
 
 /* ELIMINADOS */

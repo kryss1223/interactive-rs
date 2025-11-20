@@ -42,7 +42,7 @@
 
                 <form method="POST" action="{% url 'donar_puntos' o.id %}">
                     {% csrf_token %}
-                    <input type="number" name="puntos" min="1" max="200" placeholder="Puntos…" class="don-input">
+                    <input type="number" name="puntos" min="1" max="200" placeholder="Puntos… máx 200" class="don-input">
                     <button class="btn-glow">Donar</button>
                 </form>
             </div>
