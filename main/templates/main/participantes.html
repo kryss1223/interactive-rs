@@ -20,10 +20,12 @@
 
         <h3 class="participant-name">{{ p.nombre }}</h3>
         <p class="participant-points">{{ p.puntos_totales }}<i class="bi bi-lightning-charge-fill"></i></p>
+        <p class="stats">{{ p.numero_aliados }} aliados <i class="bi bi-people-fill"></i></p>
+
 
         <div class="participant-socials">
-            <a href="{{ p.tiktok }}" target="_blank">🎵 TikTok</a>
-            <a href="{{ p.instagram }}" target="_blank">📸 Instagram</a>
+            <a href="{{ p.tiktok }}" target="_blank"><i class="bi bi-music-note-beamed"></i> TikTok</a>
+            <a href="{{ p.instagram }}" target="_blank"><i class="bi bi-instagram"></i> Instagram</a>
         </div>
 
         {% if request.user.is_authenticated and p.id in votos_usuario %}
@@ -35,7 +37,7 @@
             </form>
         {% endif %}
 
-        <a class="btn-secondary" href="{% url 'participante_detalle' p.id %}">
+        <a class="btn-primary" href="{% url 'participante_detalle' p.id %}">
             Ver más
         </a>
 

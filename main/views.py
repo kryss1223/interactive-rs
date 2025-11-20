@@ -39,6 +39,13 @@ def home(request):
 def participantes(request):
     participantes = Participante.objects.all().order_by('-puntos_totales')
     info = get_user_status(request.user)
+    
+    # Añadir aliados activos para cada participante
+    for p in participantes:
+        p.numero_aliados = Alianza.objects.filter(
+            participante=p, 
+            fecha_fin__isnull=True
+        ).count()
 
     context = {
         'participantes': participantes,
@@ -50,6 +57,7 @@ def participante_detalle(request, pk):
     participante = get_object_or_404(Participante, pk=pk)
     videos = VideoTop.objects.filter(participante=participante)
     retos = Reto.objects.filter(participante=participante).order_by('-fecha')
+    numero_aliados = Alianza.objects.filter(participante=participante, fecha_fin__isnull=True).count()
 
     user = request.user if request.user.is_authenticated else None
 
@@ -71,11 +79,13 @@ def participante_detalle(request, pk):
             fecha__date=date.today()
         ).exists()
 
+
     return render(request, 'main/participante_detalle.html', {
         'p': participante,
         'videos': videos,
         'retos': retos,
         'alianza': alianza,
+        'numero_aliados': numero_aliados,
         'ha_votado': ha_votado,
     })
 def votar(request, pk):
@@ -98,7 +108,7 @@ def votar(request, pk):
     except:
         pass  # ya votó hoy
 
-    return redirect('home', pk=pk)
+    return redirect('participante_detalle', pk=pk)
 
 def aliarse(request, pk):
     if not request.user.is_authenticated:

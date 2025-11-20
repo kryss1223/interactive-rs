@@ -14,21 +14,22 @@
 
     <h1>{{ p.nombre }}</h1>
     <p class="stats">{{ p.puntos_totales }} puntos <i class="bi bi-lightning-charge-fill"></i></p>
-
+    <p class="stats">{{ numero_aliados }} aliados <i class="bi bi-people-fill"></i></p>
+    
 
     <div class="profile-buttons">
 
         {% if ha_votado %}
-            <button class="btn-disabled" disabled>Ya votaste hoy <i class="ph ph-arrow-circle-up"></i></button>
+            <button class="btn-disabled" disabled>✔</button>
         {% else %}
             <form method="POST" action="{% url 'votar' p.id %}">
                 {% csrf_token %}
-                <button class="btn-primary">Votar</button>
+                <button class="btn-votar">Votar</button>
             </form>
         {% endif %}
 
         {% if alianza %}
-            <button class="btn-secondary">Aliado <i class="ph ph-heart"></i></button>
+            <button class="btn-secondary">Aliado <i class="bi bi-people-fill"></i></button>
         {% else %}
             <form method="POST" action="{% url 'aliarse' p.id %}">
                 {% csrf_token %}
@@ -41,12 +42,12 @@
 
 <!-- VIDEOS TOP -->
 <section class="glass">
-    <h2>Mejores momentos</h2>
+    <h2 class="section-title">Mejores momentos</h2>
     <div class="videos-grid">
         {% for vid in videos %}
             <div class="video-card">
                 <img src="{{ vid.thumbnail }}" class="video-thumb">
-                <a href="{{ vid.url_video }}" target="_blank" class="btn-ver">Ver</a>
+                <a href="{{ vid.url_video }}" target="_blank" class="top-video-btn">Ver</a>
             </div>
         {% empty %}
             <p>No hay vídeos todavía.</p>
@@ -56,12 +57,12 @@
 
 <!-- RETOS -->
 <section class="glass retosbackground">
-    <h2>Retos</h2>
+    <h2 class="section-title">Retos</h2>
     {% for r in retos %}
         <div class="reto-card">
             <strong>{{ r.fecha|date:"d M Y" }}</strong>
             <p>{{ r.texto }}</p>
-            <p style="color: green;">Completada</p>
+            <p style="color: rgb(0, 255, 0);">Completada</p>
         </div>
     {% empty %}
         <p>No tiene retos aún.</p>

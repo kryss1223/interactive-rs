@@ -183,6 +183,7 @@ a {
     background: linear-gradient(90deg, #ff1a1a, #8c1404);
     box-shadow: 0 0 14px rgba(41, 6, 0, 0.4);
     transition: 0.2s;
+    color: white;
 }
 .hero button:hover{
      transform: scale(1.03);
@@ -190,15 +191,18 @@ a {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #ffc76a, #ffae42);
-    margin: 2%;
-    border: none;
-    padding: 0.8rem 1.4rem;
-    border-radius: 12px;
-    color: #000;
-    cursor: pointer;
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 14px;
+
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+
+    color: #fff;
     font-weight: 600;
-    box-shadow: 0 0 10px rgba(255,190,80,0.3);
+    text-decoration: none;
+
     transition: 0.2s ease;
 }
 
@@ -209,15 +213,19 @@ a {
 
 
 .btn-secondary {
-    background: #f9f9f9dc;
-    border: none;
-    padding: 0.3rem 0.6rem;
-    border-radius: 10px;
-    font-size: small;
-    color: #000;
-    cursor: pointer;
-    margin-top: 1rem;
-    display: block;
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 14px;
+
+    background: rgba(186, 224, 95, 0.201);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: 0.2s ease;
 }
 
 .grid-2 {
@@ -465,18 +473,7 @@ a {
     margin-top: 1.5rem;
 }
 
-/* Título */
-.top-videos-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255,255,255,0.3);
-}
-
+/* TOP VIDEOS DETALLES PARTICIPANTES */
 /* Scroll interno */
 .top-videos-list {
     max-height: 240px;
@@ -545,11 +542,13 @@ a {
 /* Botón */
 .top-video-btn {
     align-self: flex-start;
-    background: linear-gradient(90deg, #ffb341, #ff6a00);
+    background: linear-gradient(90deg, #ff1a1a, #8c1404);
+    box-shadow: 0 0 14px rgba(41, 6, 0, 0.4);
+    transition: 0.2s;
     padding: 6px 12px;
     font-size: 0.85rem;
     border-radius: 10px;
-    color: #2b2b2b;
+    color: #ffffff;
     font-weight: 600;
     text-decoration: none;
     transition: 0.2s;
